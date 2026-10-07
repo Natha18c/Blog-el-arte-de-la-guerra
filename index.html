@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="es">
+<head>
+<!-- Sitio autocontenido: funciona al abrir index.html directamente; no requiere JavaScript. -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Blog académico individual: El arte de la guerra — estrategia, liderazgo y relaciones humanas aplicadas a las organizaciones.">
+<title>El arte de la guerra | Jonathan Cortés</title>
+<style>
+:root{
+  --bg:#0a0b0f; --panel:#11131a; --panel2:#171923; --ink:#f4f1ea; --muted:#b8b8bd;
+  --red:#7c1822; --red2:#9e2935; --gold:#c9a45b; --line:#2a2d38; --white:#fff;
+  --shadow:0 18px 55px rgba(0,0,0,.35); --radius:22px; --max:1180px;
+}
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;background:
+  radial-gradient(circle at 15% 10%,rgba(124,24,34,.20),transparent 28%),
+  radial-gradient(circle at 90% 20%,rgba(201,164,91,.10),transparent 25%),
+  linear-gradient(180deg,#08090c 0%,#0d0f14 50%,#090a0d 100%);
+  color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
+a{color:inherit}
+.container{width:min(var(--max),calc(100% - 36px));margin:0 auto}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(8,9,12,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.07)}
+.nav{display:flex;align-items:center;gap:18px;min-height:68px;position:relative}
+.brand{font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:.85rem;white-space:nowrap}
+.brand span{color:var(--gold)}
+.navlinks{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto;align-items:center}
+.navlinks a{padding:9px 10px;border-radius:999px;text-decoration:none;color:#d6d6db;font-size:.82rem;transition:.2s ease}
+.navlinks a:hover,.navlinks a.active{background:#21151a;color:#f4ead6;border:1px solid rgba(201,164,91,.28)}
+.menu{display:none;margin-left:auto;background:#171922;color:var(--white);border:1px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer}
+.navlinks.open{display:flex}
+.navgroup{position:relative}
+.navdrop{list-style:none;padding:9px 11px;border-radius:999px;border:1px solid transparent;background:transparent;color:#d6d6db;font:inherit;font-size:.82rem;cursor:pointer;transition:.2s ease;white-space:nowrap}
+.navdrop:hover,.navgroup[open] .navdrop{background:#21151a;color:#f4ead6;border-color:rgba(201,164,91,.28)}
+.navdrop span{color:var(--gold);margin-left:4px}.navdrop::-webkit-details-marker{display:none}
+.submenu{position:absolute;top:calc(100% + 9px);left:0;min-width:235px;padding:8px;background:rgba(14,15,20,.98);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);display:none}
+.navgroup[open] .submenu{display:block}
+.submenu a{display:block;padding:10px 12px;border-radius:10px;font-size:.82rem}
+.submenu a:hover,.submenu a.active{background:#21151a;color:#f4ead6}
+.hero{min-height:88vh;display:flex;align-items:center;padding:80px 0 75px;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:52px;align-items:center}
+.kicker{display:inline-flex;align-items:center;gap:9px;padding:8px 12px;border:1px solid rgba(201,164,91,.35);color:#ead8b5;border-radius:999px;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;background:rgba(201,164,91,.05)}
+.kicker::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 20px rgba(201,164,91,.5)}
+h1{font-family:Georgia,serif;font-size:clamp(3.3rem,8vw,6.4rem);line-height:.95;margin:18px 0 18px;letter-spacing:-.055em}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.lead{font-size:1.2rem;color:#dad7d1;max-width:700px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0}
+.pill{border:1px solid var(--line);color:#d7d7da;padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.025);font-size:.82rem}
+.cta{display:inline-flex;gap:10px;align-items:center;margin-top:10px;padding:13px 18px;border-radius:12px;text-decoration:none;font-weight:750;background:var(--red);border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow)}
+.cta:hover{background:var(--red2)}
+.hero-art{min-height:430px;border:1px solid var(--line);border-radius:28px;background:
+  linear-gradient(145deg,rgba(124,24,34,.20),rgba(201,164,91,.05) 45%,rgba(255,255,255,.02)),
+  #0f1117;box-shadow:var(--shadow);display:grid;place-items:center;position:relative;overflow:hidden}
+.hero-art::before,.hero-art::after{content:"";position:absolute;border:1px solid rgba(201,164,91,.18);border-radius:50%}
+.hero-art::before{width:330px;height:330px}
+.hero-art::after{width:220px;height:220px}
+.seal{width:170px;height:170px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--gold);color:var(--gold);font-family:serif;font-size:2.8rem;letter-spacing:.1em;box-shadow:0 0 0 10px rgba(201,164,91,.04),0 0 60px rgba(201,164,91,.15);z-index:2}
+.art-caption{position:absolute;bottom:22px;left:22px;right:22px;color:#bebec4;font-size:.84rem}
+section{padding:92px 0}
+.section-head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:34px}
+.eyebrow{color:var(--gold);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800}
+h2{font-family:Georgia,serif;font-size:clamp(2.2rem,5vw,3.7rem);line-height:1.03;margin:8px 0 0}
+h3{font-size:1.25rem;margin:0 0 8px}
+p{margin:0 0 15px;color:#d2d2d7}
+.muted{color:var(--muted)}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.015));border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:0 10px 35px rgba(0,0,0,.16)}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid-5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.number{font-size:.76rem;color:var(--gold);font-weight:900;letter-spacing:.14em}
+.callout{margin-top:20px;padding:22px;border-left:4px solid var(--gold);background:#11131a;border-radius:0 16px 16px 0}
+.quote{font-family:Georgia,serif;font-size:1.45rem;line-height:1.35;color:#f2ead8}
+.timeline{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:25px}
+.timeline .step{position:relative;padding:16px;border:1px solid var(--line);border-radius:16px;background:#11131a;min-height:110px}
+.timeline .step::after{content:"→";position:absolute;right:-9px;top:42px;color:var(--gold);font-weight:900}
+.timeline .step:last-child::after{display:none}
+.step strong{display:block;color:#f6f3ec;margin-bottom:5px}
+.five-card{min-height:220px}
+.five-card .icon{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;background:rgba(201,164,91,.09);border:1px solid rgba(201,164,91,.28);font-size:1.35rem;margin-bottom:16px}
+.foda{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.foda .quad{padding:26px;border-radius:20px;border:1px solid var(--line);min-height:260px}
+.foda h3{display:flex;align-items:center;justify-content:space-between}
+.foda ul,.clean{margin:10px 0 0;padding-left:18px;color:#d5d5d9}
+.strength{background:linear-gradient(150deg,rgba(55,123,89,.15),rgba(255,255,255,.02))}
+.weak{background:linear-gradient(150deg,rgba(169,109,45,.13),rgba(255,255,255,.02))}
+.opp{background:linear-gradient(150deg,rgba(66,89,143,.17),rgba(255,255,255,.02))}
+.threat{background:linear-gradient(150deg,rgba(124,24,34,.19),rgba(255,255,255,.02))}
+.compare{width:100%;border-collapse:collapse;overflow:hidden;border-radius:18px;border:1px solid var(--line);background:#11131a}
+.compare th,.compare td{padding:14px 16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.compare th{color:#eee5d0;background:#171922}
+.compare tr:last-child td{border-bottom:none}
+.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:18px}
+.flow span{padding:12px 14px;border:1px solid var(--line);border-radius:999px;background:#11131a}
+.flow b{color:var(--gold)}
+.personal{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.personal .card{min-height:285px}
+.link-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.link-card{display:block;text-decoration:none}
+.link-card:hover{transform:translateY(-2px);border-color:#404454}
+.link-domain{font-size:.75rem;letter-spacing:.07em;text-transform:uppercase;color:var(--gold);font-weight:800}
+footer{padding:48px 0 70px;border-top:1px solid var(--line);background:#08090c}
+.footer-grid{display:flex;justify-content:space-between;gap:30px;align-items:end}
+.top-link{display:inline-flex;padding:10px 13px;border:1px solid var(--line);border-radius:12px;text-decoration:none}
+.small{font-size:.83rem;color:#a7a7ad}
+.reveal{opacity:1;transform:none}
+
+@media(max-width:1050px){
+  .navlinks{display:none;position:absolute;top:68px;left:12px;right:12px;padding:12px;background:rgba(14,15,20,.98);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);flex-direction:column;align-items:stretch}
+  .navgroup{width:100%}
+  .navdrop{width:100%;text-align:left;padding:12px 14px;border-radius:12px}
+  .submenu{position:static;min-width:0;width:100%;box-shadow:none;border:0;background:#0d0e13;padding:4px 6px 8px}
+  .submenu a{width:100%;padding:10px 14px}
+  .menu{display:block}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-art{min-height:320px}
+  .grid-5{grid-template-columns:repeat(2,1fr)}
+  .timeline{grid-template-columns:repeat(2,1fr)}
+  .timeline .step::after{display:none}
+}
+@media(max-width:760px){
+  .container{width:min(var(--max),calc(100% - 24px))}
+  section{padding:70px 0}
+  .grid-2,.grid-3,.personal,.link-grid,.foda{grid-template-columns:1fr}
+  .timeline{grid-template-columns:1fr}
+  .grid-5{grid-template-columns:1fr}
+  h1{font-size:clamp(3rem,15vw,4.4rem)}
+  .hero{padding-top:55px}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="container nav">
+    <div class="brand">El arte de la <span>guerra</span></div>
+    <div class="navlinks" id="siteNav">
+      <a href="#inicio">Inicio</a>
+
+      <details class="navgroup"><summary class="navdrop">Lectura <span>⌄</span></summary><div class="submenu">
+          <a href="#introduccion">Introducción</a>
+          <a href="#libro">Conociendo la obra</a>
+          <a href="#ensenanzas">Principales enseñanzas</a>
+        </div></details>
+
+      <details class="navgroup"><summary class="navdrop">Crecimiento <span>⌄</span></summary><div class="submenu">
+          <a href="#crecimiento">Personal, familiar y profesional</a>
+          <a href="#organizaciones">Crecimiento organizacional</a>
+        </div></details>
+
+      <details class="navgroup"><summary class="navdrop">Liderazgo <span>⌄</span></summary><div class="submenu">
+          <a href="#liderazgo">5 principios de liderazgo</a>
+          <a href="#relaciones">Relaciones humanas</a>
+        </div></details>
+
+      <details class="navgroup"><summary class="navdrop">Análisis <span>⌄</span></summary><div class="submenu">
+          <a href="#foda">Matriz FODA</a>
+          <a href="#panama">Empresas panameñas</a>
+          <a href="#toyota">Caso Toyota</a>
+        </div></details>
+
+      <details class="navgroup"><summary class="navdrop">Conclusiones <span>⌄</span></summary><div class="submenu">
+          <a href="#reflexion">Mi reflexión</a>
+          <a href="#conclusion">Conclusión</a>
+          <a href="#bibliografia">Bibliografía</a>
+        </div></details>
+    </div>
+    <button class="menu" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+  </div>
+</div>
+
+<div class="container" style="padding-top:10px">
+  <div class="small" style="text-align:right">Navegación del blog · utiliza las categorías y sus submenús para explorar el análisis</div>
+</div>
+
+<main id="inicio">
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="kicker">Análisis de lectura • Supervisión y Relaciones Humanas</div>
+      <h1>EL ARTE DE LA <em>GUERRA</em></h1>
+      <p class="lead">Estrategia, liderazgo y relaciones humanas aplicadas a las organizaciones.</p>
+      <div class="hero-meta">
+        <span class="pill">Sun Tzu</span>
+        <span class="pill">Jonathan Cortés</span>
+        <span class="pill">UTP • Mecánica Industrial</span>
+        <span class="pill">6 de octubre de 2026</span>
+      </div>
+      <a class="cta" href="#introduccion">Comenzar análisis ↓</a>
+    </div>
+    <div class="hero-art" aria-label="Ilustración decorativa">
+      <div class="seal">孫子</div>
+      <div class="art-caption">Una lectura estratégica: pensar antes de actuar, conocer las capacidades, administrar los recursos y adaptarse a las circunstancias.</div>
+    </div>
+  </div>
+</section>
+
+<section id="introduccion">
+  <div class="container reveal">
+    <div class="section-head">
+      <div><div class="eyebrow">01 • Punto de partida</div><h2>Introducción</h2></div>
+    </div>
+    <div class="card">
+      <p>Cuando se habla de <em>El arte de la guerra</em>, lo primero que uno puede pensar es que se trata de un libro relacionado únicamente con guerras, ejércitos y batallas. Sin embargo, al leer la obra de Sun Tzu, se puede notar que muchas de sus ideas tienen relación con situaciones que existen actualmente fuera del ámbito militar.</p>
+      <p>El autor habla de planificación, estrategia, liderazgo, organización, conocimiento, recursos y adaptación, temas que también son importantes dentro de una empresa. Algo que me llamó bastante la atención durante la lectura es que Sun Tzu no presenta la guerra simplemente como un enfrentamiento en el que gana el que tiene más fuerza; insiste en evaluar la situación y conocer las condiciones antes de actuar.</p>
+      <p>En este blog analizo algunas de las principales ideas de la obra y su posible aplicación al ámbito empresarial, al liderazgo y a las relaciones humanas dentro de las organizaciones.</p>
+    </div>
+  </div>
+</section>
+
+<section id="libro">
+  <div class="container reveal">
+    <div class="section-head">
+      <div><div class="eyebrow">02 • Contexto</div><h2>Conociendo la obra</h2></div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>Sun Tzu y la estrategia</h3>
+        <p>Sun Tzu fue un estratega y general chino que vivió aproximadamente en el siglo V antes de Cristo. La obra aborda evaluación, planificación, disposición de fuerzas, liderazgo, terreno, adaptación y distintas maneras de enfrentar un conflicto.</p>
+        <p class="muted">Su valor para este análisis está en la forma de pensar estratégicamente, no en copiar literalmente un contexto militar.</p>
+      </div>
+      <div class="card">
+        <h3>La idea central</h3>
+        <p>Antes de actuar es necesario evaluar la situación: conocer las condiciones, los recursos disponibles, las propias capacidades y el entorno. Esta lógica puede trasladarse al mundo empresarial como análisis interno y externo antes de una decisión importante.</p>
+        <div class="callout"><div class="quote">“Pensar estratégicamente significa entender la situación antes de decidir cómo actuar.”</div></div>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="step"><strong>Sun Tzu</strong><span class="muted">Pensamiento estratégico</span></div>
+      <div class="step"><strong>Estrategia</strong><span class="muted">Elegir cómo alcanzar el objetivo</span></div>
+      <div class="step"><strong>Planificación</strong><span class="muted">Evaluar antes de actuar</span></div>
+      <div class="step"><strong>Conocimiento</strong><span class="muted">Capacidades y entorno</span></div>
+      <div class="step"><strong>Liderazgo</strong><span class="muted">Organizar y dirigir</span></div>
+      <div class="step"><strong>Adaptación</strong><span class="muted">Modificar la estrategia</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="ensenanzas">
+  <div class="container reveal">
+    <div class="section-head">
+      <div><div class="eyebrow">03 • Cinco ideas</div><h2>Principales enseñanzas</h2></div>
+    </div>
+    <div class="grid-5">
+      <article class="card five-card"><div class="icon">01</div><h3>Planificar antes de actuar</h3><p>Evaluar condiciones, riesgos, recursos, tiempo y objetivos antes de iniciar una acción.</p></article>
+      <article class="card five-card"><div class="icon">02</div><h3>Conocerse y conocer el entorno</h3><p>Identificar fortalezas y debilidades propias y comprender la competencia y las necesidades del entorno.</p></article>
+      <article class="card five-card"><div class="icon">03</div><h3>Liderazgo y organización</h3><p>Definir responsabilidades, coordinar personas y utilizar sus capacidades donde puedan aportar más.</p></article>
+      <article class="card five-card"><div class="icon">04</div><h3>Administrar recursos</h3><p>Gestionar de manera eficiente dinero, tiempo, materiales, equipos, información y personas.</p></article>
+      <article class="card five-card"><div class="icon">05</div><h3>Adaptarse</h3><p>Reconocer cuándo las condiciones cambiaron y ajustar la estrategia sin perder de vista el objetivo.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="crecimiento">
+  <div class="container reveal">
+    <div class="section-head"><div><div class="eyebrow">04 • Aporte personal</div><h2>Lo que la lectura aportó a mi crecimiento</h2></div></div>
+    <div class="personal">
+      <article class="card"><div class="number">A • PERSONAL</div><h3>Pensar antes de reaccionar</h3><p>La lectura me aporta la idea de observar la situación antes de tomar una decisión. Esto fortalece el análisis, el autocontrol, la identificación de fortalezas y debilidades y la evaluación de consecuencias.</p><p class="muted">Aprendizaje central: no toda situación se resuelve haciendo más fuerza; muchas veces se resuelve entendiendo mejor el problema.</p></article>
+      <article class="card"><div class="number">B • FAMILIAR</div><h3>Comunicación y manejo de conflictos</h3><p>Desde una interpretación personal, los principios de conocer las circunstancias, escuchar, evaluar opciones y evitar conflictos innecesarios pueden ayudar a fortalecer la comunicación y la convivencia familiar.</p><p class="muted">El enfoque está en comprender antes de reaccionar y buscar soluciones sostenibles.</p></article>
+      <article class="card"><div class="number">C • PROFESIONAL</div><h3>Preparación para liderar</h3><p>Como estudiante de Mecánica Industrial, relaciono estas enseñanzas con supervisión, mantenimiento, producción, administración de materiales, planificación, trabajo en equipo y resolución de problemas.</p><p class="muted">Un profesional técnico también necesita decidir, coordinar personas y recursos y adaptarse a cambios.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="liderazgo">
+  <div class="container reveal">
+    <div class="section-head"><div><div class="eyebrow">05 • Liderazgo</div><h2>Cinco principios esenciales</h2></div></div>
+    <div class="grid-2">
+      <article class="card"><div class="number">01</div><h3>Conocer al equipo</h3><p>Un líder necesita comprender las habilidades, limitaciones y capacidades de las personas para asignar responsabilidades de forma adecuada.</p></article>
+      <article class="card"><div class="number">02</div><h3>Planificar</h3><p>Definir objetivos, anticipar riesgos y preparar recursos antes de ejecutar una tarea reduce improvisaciones y pérdidas.</p></article>
+      <article class="card"><div class="number">03</div><h3>Comunicar</h3><p>Las metas, responsabilidades y prioridades deben ser claras para que el equipo pueda coordinarse correctamente.</p></article>
+      <article class="card"><div class="number">04</div><h3>Administrar recursos</h3><p>El liderazgo también consiste en utilizar de manera responsable el tiempo, las herramientas, los materiales, la información y el talento.</p></article>
+      <article class="card"><div class="number">05</div><h3>Adaptarse</h3><p>Cuando cambian las condiciones, el líder debe revisar la estrategia y ajustar la ejecución sin perder de vista el objetivo.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="relaciones">
+  <div class="container reveal">
+    <div class="section-head"><div><div class="eyebrow">06 • Personas y organización</div><h2>Liderazgo y relaciones humanas</h2></div></div>
+    <div class="grid-2">
+      <div class="card"><h3>Liderazgo</h3><p>Las enseñanzas del libro pueden relacionarse con dirección, disciplina, organización, responsabilidad, planificación, conocimiento del equipo, distribución de tareas y toma de decisiones.</p></div>
+      <div class="card"><h3>Relaciones humanas</h3><p>En una organización, el análisis estratégico debe complementarse con comunicación, confianza, coordinación, respeto, trabajo en equipo y resolución de conflictos.</p></div>
+    </div>
+    <div class="card" style="margin-top:18px">
+      <h3>De la estrategia al resultado</h3>
+      <div class="flow">
+        <span>Planificación</span><b>→</b><span>Conocimiento</span><b>→</b><span>Comunicación</span><b>→</b><span>Liderazgo</span><b>→</b><span>Trabajo en equipo</span><b>→</b><span>Resultados</span>
+      </div>
+    </div>
+    <div class="callout"><p><strong>Lectura crítica:</strong> no todas las estrategias del libro deben trasladarse literalmente a las organizaciones modernas. En particular, los conceptos de engaño o manipulación deben analizarse a la luz de la ética, las leyes y los principios actuales de las relaciones humanas.</p></div>
+  </div>
+</section>
+
+<section id="foda">
+  <div class="container reveal">
+    <div class="section-head"><div><div class="eyebrow">07 • Diagnóstico</div><h2>Matriz FODA del libro</h2></div></div>
+    <div class="foda">
+      <div class="quad strength"><h3>Fortalezas <span>4</span></h3><ul><li>Presenta principios estratégicos aplicables a diferentes contextos.</li><li>Resalta la importancia de la planificación.</li><li>Desarrolla conceptos de liderazgo y administración de recursos.</li><li>Destaca la adaptación como ventaja.</li></ul></div>
+      <div class="quad weak"><h3>Debilidades <span>4</span></h3><ul><li>Su contexto original es militar.</li><li>Algunas ideas requieren interpretación para organizaciones modernas.</li><li>Algunos conceptos pueden malinterpretarse si se trasladan literalmente.</li><li>El engaño puede entrar en conflicto con principios éticos actuales.</li></ul></div>
+      <div class="quad opp"><h3>Oportunidades <span>4</span></h3><ul><li>Aplicación al liderazgo empresarial.</li><li>Aplicación a la toma de decisiones.</li><li>Relación con la planificación estratégica.</li><li>Integración con herramientas modernas de administración.</li></ul></div>
+      <div class="quad threat"><h3>Amenazas <span>4</span></h3><ul><li>Interpretar literalmente las estrategias militares.</li><li>Convertir el concepto de adversario en una mentalidad negativa dentro de los equipos.</li><li>Confundir liderazgo con autoritarismo.</li><li>Utilizar la competencia empresarial de forma poco ética.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="organizaciones">
+  <div class="container reveal">
+    <div class="section-head"><div><div class="eyebrow">08 • Aplicación</div><h2>Cinco aportes para el crecimiento organizacional</h2></div></div>
+    <div class="grid-2">
+      <div class="card"><div class="number">01</div><h3>Planificación estratégica</h3><p>Anticipar escenarios y riesgos ayuda a reducir errores y a utilizar mejor el tiempo y los recursos.</p></div>
+      <div class="card"><div class="number">02</div><h3>Uso eficiente de los recursos</h3><p>Una organización debe optimizar personas, tiempo, dinero, materiales y equipos; no se trata solamente de tener más, sino de usarlos mejor.</p></div>
+      <div class="card"><div class="number">03</div><h3>Conocimiento de fortalezas y debilidades</h3><p>Reconocer las capacidades y limitaciones permite decidir dónde competir, dónde mejorar y qué riesgos evitar.</p></div>
+      <div class="card"><div class="number">04</div><h3>Adaptación</h3><p>Los cambios tecnológicos, económicos y del mercado obligan a revisar estrategias y procesos.</p></div>
+      <div class="card"><div class="number">05</div><h3>Liderazgo y coordinación</h3><p>Una buena dirección permite aprovechar las capacidades individuales y convertirlas en resultados colectivos.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="panama">
+  <div class="container reveal">
+    <div class="section-head"><div><div class="eyebrow">09 • Panamá</div><h2>Aplicación en empresas panameñas</h2></div></div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>Copa Airlines</h3>
+        <p>El documento analiza cómo la ubicación de Panamá y la conectividad pueden interpretarse como una ventaja estratégica. Desde los principios de Sun Tzu, puede relacionarse con el concepto de “terreno”, el conocimiento del entorno y la capacidad de adaptación.</p>
+        <p class="muted">La comparación es analítica: no significa que Copa Airlines aplique literalmente El arte de la guerra.</p>
+        <a class="cta" href="https://ir.copaair.com/financial-information/annual-reports" target="_blank" rel="noopener">Ver informes oficiales ↗</a>
+      </div>
+      <div class="card">
+        <h3>Banco General</h3>
+        <p>La comparación puede centrarse en conocimiento del entorno y del cliente, administración de riesgos, confianza, tecnología y toma de decisiones. Estos elementos permiten reflexionar sobre cómo una organización convierte información y capacidades en decisiones.</p>
+        <p class="muted">Nuevamente, se presenta como una interpretación de los principios estratégicos, no como una afirmación de aplicación literal.</p>
+        <a class="cta" href="https://www.bgeneral.com/informacion-corporativa/" target="_blank" rel="noopener">Ver información corporativa ↗</a>
+      </div>
+    </div>
+    <div class="card" style="margin-top:18px">
+      <h3>Comparación rápida</h3>
+      <table class="compare">
+        <thead><tr><th>Elemento estratégico</th><th>Copa Airlines</th><th>Banco General</th></tr></thead>
+        <tbody>
+          <tr><td>Ventaja estratégica</td><td>Conectividad y posición de Panamá</td><td>Relación con clientes, servicios y capacidades institucionales</td></tr>
+          <tr><td>Conocimiento del entorno</td><td>Rutas, demanda y operación</td><td>Clientes, riesgos, regulación y tecnología</td></tr>
+          <tr><td>Adaptación</td><td>Mercado, rutas y condiciones operativas</td><td>Canales, tecnología y necesidades de clientes</td></tr>
+          <tr><td>Recursos</td><td>Aeronaves, rutas, personal y tiempo</td><td>Capital, personas, tecnología e información</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="toyota">
+  <div class="container reveal">
+    <div class="section-head"><div><div class="eyebrow">10 • Caso internacional</div><h2>Toyota: eficiencia y mejora continua</h2></div></div>
+    <div class="card">
+      <p>El documento utiliza Toyota como ejemplo para relacionar las ideas de Sun Tzu con la utilización eficiente de los recursos, la reducción de desperdicios, la mejora continua y la adaptación de los procesos.</p>
+      <div class="flow">
+        <span>Recursos</span><b>→</b><span>Eficiencia</span><b>→</b><span>Mejora continua</span><b>→</b><span>Adaptación</span><b>→</b><span>Competitividad</span>
+      </div>
+      <p style="margin-top:20px" class="muted">Toyota describe oficialmente su Toyota Production System como un enfoque orientado a eliminar desperdicios, acortar tiempos de entrega y mejorar el trabajo mediante mejoras incrementales (kaizen).</p>
+      <a class="cta" href="https://global.toyota/en/company/vision-and-philosophy/production-system/" target="_blank" rel="noopener">Consultar Toyota Production System ↗</a>
+    </div>
+  </div>
+</section>
+
+<section id="reflexion">
+  <div class="container reveal">
+    <div class="section-head"><div><div class="eyebrow">11 • Voz del estudiante</div><h2>Mi reflexión después de la lectura</h2></div></div>
+    <div class="grid-2">
+      <div class="card">
+        <p>Después de leer el libro, considero que una de sus principales enseñanzas es que la fuerza por sí sola no garantiza el éxito. La información, la planificación y la estrategia pueden ser más importantes que tener más recursos.</p>
+        <p>También considero importante reconocer las propias limitaciones. Una persona o empresa que cree que puede hacer todo puede terminar tomando decisiones poco realistas. Pensar antes de actuar permite identificar alternativas y evitar conflictos innecesarios.</p>
+        <p>Para mí, la estrategia no es exclusiva de los gerentes. Cualquier persona que tenga que resolver un problema puede beneficiarse de evaluar las condiciones, considerar las consecuencias y decidir cuándo mantener, cambiar o abandonar una estrategia.</p>
+      </div>
+      <div class="card">
+        <div class="number">APRENDIZAJE CLAVE</div>
+        <div class="quote" style="margin-top:12px">“Una buena estrategia no siempre significa hacer más que los demás, sino saber dónde, cuándo y cómo utilizar las capacidades que se tienen.”</div>
+        <p style="margin-top:20px" class="muted">Reflexión del estudiante. No es una cita textual de Sun Tzu.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <p><strong>Lectura crítica:</strong> el valor actual del libro está, en gran medida, en su forma de pensar estratégicamente. Las ideas deben reinterpretarse para un entorno moderno en el que existen leyes, normas, ética profesional y una necesidad de construir relaciones humanas saludables.</p>
+    </div>
+  </div>
+</section>
+
+<section id="conclusion">
+  <div class="container reveal">
+    <div class="section-head"><div><div class="eyebrow">12 • Cierre</div><h2>Conclusión</h2></div></div>
+    <div class="card">
+      <p><em>El arte de la guerra</em> demuestra que la estrategia no consiste simplemente en derrotar a un adversario. También consiste en analizar una situación, conocer los recursos disponibles, identificar fortalezas y debilidades y tomar decisiones de manera organizada.</p>
+      <p>Entre las ideas más importantes para este análisis se encuentran la planificación, el conocimiento propio y del entorno, el liderazgo, la administración de recursos y la capacidad de adaptación. Estas ideas pueden relacionarse con empresas panameñas como Copa Airlines y Banco General, y con una empresa internacional como Toyota.</p>
+      <p>La lectura también permite entender que una buena estrategia no siempre significa enfrentarse directamente al problema. En muchas ocasiones, la mejor opción puede ser buscar otra manera de alcanzar el objetivo utilizando las condiciones disponibles a nuestro favor.</p>
+      <p>Finalmente, considero que la obra continúa siendo estudiada porque los problemas relacionados con la toma de decisiones, los recursos, la competencia y la adaptación todavía existen. El contexto cambió, pero la necesidad de pensar estratégicamente sigue siendo la misma.</p>
+    </div>
+  </div>
+</section>
+
+<section id="bibliografia">
+  <div class="container reveal">
+    <div class="section-head"><div><div class="eyebrow">13 • Referencias</div><h2>Bibliografía y material complementario</h2></div></div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>Referencias base</h3>
+        <ul class="clean">
+          <li>Sun Tzu. (2003). <em>El arte de la guerra</em>. Documento proporcionado para la asignatura.</li>
+          <li>Banco General. (s. f.). Información corporativa e informes financieros. Banco General.</li>
+          <li>Copa Holdings, S.A. (s. f.). Annual reports. Copa Holdings.</li>
+          <li>Toyota Motor Corporation. (s. f.). Toyota Production System. Toyota Global.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Fuentes oficiales consultadas</h3>
+        <div class="link-grid" style="grid-template-columns:1fr">
+          <a class="card link-card" href="https://ir.copaair.com/financial-information/annual-reports" target="_blank" rel="noopener"><div class="link-domain">ir.copaair.com</div><h3>Annual Reports • Copa Holdings</h3><p class="small">Informes anuales y documentos financieros oficiales.</p></a>
+          <a class="card link-card" href="https://www.bgeneral.com/informacion-corporativa/" target="_blank" rel="noopener"><div class="link-domain">bgeneral.com</div><h3>Información Corporativa • Banco General</h3><p class="small">Historia, gobierno corporativo e información financiera.</p></a>
+          <a class="card link-card" href="https://global.toyota/en/company/vision-and-philosophy/production-system/" target="_blank" rel="noopener"><div class="link-domain">global.toyota</div><h3>Toyota Production System</h3><p class="small">Descripción oficial del sistema de producción y mejora continua.</p></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <div class="brand">EL ARTE DE LA <span>GUERRA</span></div>
+      <p class="small">Análisis de lectura • Jonathan Cortés • UTP • Facultad de Ingeniería Mecánica</p>
+      <p class="small">Licenciatura en Mecánica Industrial • Supervisión y Relaciones Humanas • 6 de octubre de 2026</p>
+    </div>
+    <a class="top-link" href="#inicio">↑ Volver al inicio</a>
+  </div>
+</footer>
+
+
+</body>
+</html>

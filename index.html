@@ -24,7 +24,7 @@ a{color:inherit}
 .nav{display:flex;align-items:center;gap:18px;min-height:68px;position:relative}
 .brand{font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:.85rem;white-space:nowrap}
 .brand span{color:var(--gold)}
-.navlinks{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto;align-items:center}
+.navlinks{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto;align-items:center;justify-content:flex-end;max-width:100%}
 .navgroup{position:relative}
 .navdrop{padding:9px 11px;border-radius:999px;border:1px solid transparent;background:transparent;color:#d6d6db;font:inherit;font-size:.82rem;cursor:pointer;transition:.2s ease;white-space:nowrap;list-style:none}
 .navdrop:hover{background:#21151a;color:#f4ead6;border-color:rgba(201,164,91,.28)}
@@ -81,7 +81,8 @@ p{margin:0 0 15px;color:#d2d2d7}
 .weak{background:linear-gradient(150deg,rgba(169,109,45,.13),rgba(255,255,255,.02))}
 .opp{background:linear-gradient(150deg,rgba(66,89,143,.17),rgba(255,255,255,.02))}
 .threat{background:linear-gradient(150deg,rgba(124,24,34,.19),rgba(255,255,255,.02))}
-.compare{width:100%;border-collapse:collapse;overflow:hidden;border-radius:18px;border:1px solid var(--line);background:#11131a}
+.compare-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:18px}
+.compare{width:100%;min-width:680px;border-collapse:collapse;overflow:hidden;border-radius:18px;border:1px solid var(--line);background:#11131a}
 .compare th,.compare td{padding:14px 16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
 .compare th{color:#eee5d0;background:#171922}
 .compare tr:last-child td{border-bottom:none}
@@ -99,22 +100,29 @@ footer{padding:48px 0 70px;border-top:1px solid var(--line);background:#08090c}
 .top-link{display:inline-flex;padding:10px 13px;border:1px solid var(--line);border-radius:12px;text-decoration:none}
 .small{font-size:.83rem;color:#a7a7ad}
 .reveal{opacity:1;transform:none}
+.menu{display:none;border:1px solid var(--line);background:#11131a;color:var(--ink);border-radius:12px;padding:9px 11px;font-size:1.1rem;cursor:pointer}
 
 @media(max-width:1050px){
-  .navlinks{display:none;position:absolute;top:68px;left:12px;right:12px;padding:12px;background:rgba(14,15,20,.99);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);flex-direction:column;align-items:stretch;z-index:90}
+  .navlinks{display:flex;position:absolute;top:68px;left:12px;right:12px;padding:12px;background:rgba(14,15,20,.99);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);flex-direction:column;align-items:stretch;z-index:90}
   .navgroup{width:100%}
   .navdrop{width:100%;text-align:left;padding:12px 14px;border-radius:12px}
   .submenu{position:static;min-width:0;width:100%;box-shadow:none;border:0;background:#0d0e13;padding:4px 6px 8px}
   .submenu a{width:100%;padding:10px 14px}
   .menu{display:block}
+  .navlinks .navgroup{width:100%}
   .hero-grid{grid-template-columns:1fr}
+  .nav{min-height:64px}
   .hero-art{min-height:320px}
+  .hero-art::before{width:240px;height:240px}.hero-art::after{width:165px;height:165px}
+  .hero-art .seal{width:135px;height:135px;font-size:2.2rem}
   .grid-5{grid-template-columns:repeat(2,1fr)}
   .timeline{grid-template-columns:repeat(2,1fr)}
   .timeline .step::after{display:none}
 }
 @media(max-width:760px){
   .container{width:min(var(--max),calc(100% - 24px))}
+  .brand{font-size:.76rem}
+  .navlinks{top:64px}
   section{padding:70px 0}
   .grid-2,.grid-3,.personal,.link-grid,.foda{grid-template-columns:1fr}
   .timeline{grid-template-columns:1fr}
@@ -131,15 +139,11 @@ footer{padding:48px 0 70px;border-top:1px solid var(--line);background:#08090c}
     <div class="navlinks" id="siteNav">
       <a href="#inicio">Inicio</a>
 
-      <div class="navgroup"><button class="navdrop" type="button">Lectura <span>⌄</span></button><div class="submenu"><a href="#introduccion">Introducción</a><a href="#libro">Conociendo la obra</a><a href="#ensenanzas">Principales enseñanzas</a></div></div></div>
-
-      <div class="navgroup"><button class="navdrop" type="button">Crecimiento <span>⌄</span></button><div class="submenu"><a href="#crecimiento">Personal, familiar y profesional</a><a href="#organizaciones">Crecimiento organizacional</a></div></div></div>
-
-      <div class="navgroup"><button class="navdrop" type="button">Liderazgo <span>⌄</span></button><div class="submenu"><a href="#liderazgo">5 principios de liderazgo</a><a href="#relaciones">Relaciones humanas</a></div></div></div>
-
-      <div class="navgroup"><button class="navdrop" type="button">Análisis <span>⌄</span></button><div class="submenu"><a href="#foda">Matriz FODA</a><a href="#panama">Empresas panameñas</a><a href="#toyota">Caso Toyota</a></div></div></div>
-
-      <div class="navgroup"><button class="navdrop" type="button">Conclusiones <span>⌄</span></button><div class="submenu"><a href="#reflexion">Mi reflexión</a><a href="#conclusion">Conclusión</a><a href="#bibliografia">Bibliografía</a></div></div></div>
+      <div class="navgroup"><button class="navdrop" type="button">Lectura <span>⌄</span></button><div class="submenu"><a href="#introduccion">Introducción</a><a href="#libro">Conociendo la obra</a><a href="#ensenanzas">Principales enseñanzas</a></div></div>
+      <div class="navgroup"><button class="navdrop" type="button">Crecimiento <span>⌄</span></button><div class="submenu"><a href="#crecimiento">Personal, familiar y profesional</a><a href="#organizaciones">Crecimiento organizacional</a></div></div>
+      <div class="navgroup"><button class="navdrop" type="button">Liderazgo <span>⌄</span></button><div class="submenu"><a href="#liderazgo">5 principios de liderazgo</a><a href="#relaciones">Relaciones humanas</a></div></div>
+      <div class="navgroup"><button class="navdrop" type="button">Análisis <span>⌄</span></button><div class="submenu"><a href="#foda">Matriz FODA</a><a href="#panama">Empresas panameñas</a><a href="#toyota">Caso Toyota</a></div></div>
+      <div class="navgroup"><button class="navdrop" type="button">Conclusiones <span>⌄</span></button><div class="submenu"><a href="#reflexion">Mi reflexión</a><a href="#conclusion">Conclusión</a><a href="#bibliografia">Bibliografía</a></div></div>
     </div>
     <button class="menu" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
   </div>
@@ -312,7 +316,7 @@ footer{padding:48px 0 70px;border-top:1px solid var(--line);background:#08090c}
     </div>
     <div class="card" style="margin-top:18px">
       <h3>Comparación rápida</h3>
-      <table class="compare">
+      <div class="compare-wrap"><table class="compare">
         <thead><tr><th>Elemento estratégico</th><th>Copa Airlines</th><th>Banco General</th></tr></thead>
         <tbody>
           <tr><td>Ventaja estratégica</td><td>Conectividad y posición de Panamá</td><td>Relación con clientes, servicios y capacidades institucionales</td></tr>
@@ -320,7 +324,7 @@ footer{padding:48px 0 70px;border-top:1px solid var(--line);background:#08090c}
           <tr><td>Adaptación</td><td>Mercado, rutas y condiciones operativas</td><td>Canales, tecnología y necesidades de clientes</td></tr>
           <tr><td>Recursos</td><td>Aeronaves, rutas, personal y tiempo</td><td>Capital, personas, tecnología e información</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 </section>
